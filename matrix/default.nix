@@ -1,15 +1,15 @@
 # This uses a pinned Nixpkgs so the software
 # used for the export (inkscape) and fonts used
 # for the export stay proper.
-{ pkgs ? import ./pkgs.nix {} }:
+{ pkgs  import ./pkgs.nix {} }:
 
-let
+
   FONTCONFIG_FILE = pkgs.callPackage (
     { symlinkJoin
     , writeText
     , encode-sans
   }:
-  let
+  
     mkFontsDir = fonts: symlinkJoin {
       name = "fonts-dir";
       paths = fonts;
@@ -18,7 +18,7 @@ let
     fontsDir = mkFontsDir [
       encode-sans
     ];
-  in
+  
 
   writeText "fonts.conf" ''
     <?xml version='1.0'?>
@@ -76,5 +76,5 @@ let
       p.nokogiri
     ]);
   };
-in
+
   build
